@@ -1,0 +1,202 @@
+--table Products--
++----+----------------------+------------------------------------------------+--------+-------------+
+| id | product_name         | description                                    | price  | category    |
++----+----------------------+------------------------------------------------+--------+-------------+
+|  1 | Wireless Mouse       | Ergonomic old mouse for precision tasks.       |  25.99 | Electronics |
+|  2 | Mechanical Keyboard  | Old RGB mechanical keyboard with tactile keys. |  89.99 | Electronics |
+|  3 | USB-C Hub            | Versatile USB-C hub.                           |  34.50 | Accessories |
+|  4 | External SSD         | Compact external SSD with old 1TB storage.     | 129.99 | Storage     |
+|  5 | Bluetooth Headphones | Noise-cancelling old Bluetooth headphones.     |  59.99 | Audio       |
+|  6 | Gaming Chair         | Comfortable old chair designed for gaming.     | 199.99 | Furniture   |
+|  7 | 4K Monitor           | Ultra HD old 4K monitor for crisp visuals.     | 329.99 | Electronics |
+|  8 | Smartphone Stand     | Adjustable stand for smartphones.              |  14.99 | Accessories |
+|  9 | Wireless Charger     | Fast wireless charger for mobile devices.      |  19.99 | Electronics |
+| 10 | Smartwatch           | Smartwatch with fitness tracking old features. | 149.99 | Wearables   |
++----+----------------------+------------------------------------------------+--------+-------------+
+
+1. Write a query to select the first 5 characters of a column named description from a table called products.
+mysql> select left(description, 5) from Products;
++----------------------+
+| left(description, 5) |
++----------------------+
+| Ergon                |
+| RGB m                |
+| Limit                |
+| Compa                |
+| Noise                |
+| Comfo                |
+| Ultra                |
+| Speci                |
+| Fast                 |
+| Smart                |
++----------------------+
+
+
+2. Write a query to find the length of the product_name column in the products table.
+mysql> select char_length(product_name) as length from Products;
++--------+
+| length |
++--------+
+|     14 |
+|     19 |
+|      9 |
+|     12 |
+|     20 |
+|     12 |
+|     10 |
+|     16 |
+|     16 |
+|     10 |
++--------+
+
+3. Write a query to convert all values in the product_name column to uppercase in the products table.
+mysql> select upper(product_name) from Products;
++----------------------+
+| upper(product_name)  |
++----------------------+
+| WIRELESS MOUSE       |
+| MECHANICAL KEYBOARD  |
+| USB-C HUB            |
+| EXTERNAL SSD         |
+| BLUETOOTH HEADPHONES |
+| GAMING CHAIR         |
+| 4K MONITOR           |
+| SMARTPHONE STAND     |
+| WIRELESS CHARGER     |
+| SMARTWATCH           |
++----------------------+
+
+4. Write a query to replace all occurrences of the word "Old" with "New" in the description column of the products table.
+mysql> select replace(description, "old", "new") from Products;
++------------------------------------------------+
+| replace(description, "old", "new")             |
++------------------------------------------------+
+| Ergonomic new mouse for precision tasks.       |
+| RGB mechanical keyboard with tactile keys.     |
+| Versatile USB-C hub.                           |
+| Compact external SSD with new 1TB storage.     |
+| Noise-cancelling new Bluetooth headphones.     |
+| Comfortable new chair designed for gaming.     |
+| Ultra HD new 4K monitor for crisp visuals.     |
+| Adjustable stand for smartphones.              |
+| Fast wireless charger for mobile devices.      |
+| Smartwatch with fitness tracking new features. |
++------------------------------------------------+
+
+5. Write a query to find the position of the first occurrence of the word "Special" in the description column from the products table.
+mysql> select locate("Special", description) from Products;
++--------------------------------+
+| locate("Special", description) |
++--------------------------------+
+|                              0 |
+|                              0 |
+|                              0 |
+|                              0 |
+|                              0 |
+|                              0 |
+|                              0 |
+|                              1 |
+|                              0 |
+|                              0 |
++--------------------------------+
+
+6. Write a query to extract the substring starting from the 3rd character to the 7th character from the description column in the products table.
+mysql> select substr(description, 3, 7) from Products;
++---------------------------+
+| substr(description, 3, 7) |
++---------------------------+
+| gonomic                   |
+| d RGB m                   |
+| rsatile                   |
+| mpact e                   |
+| ise-can                   |
+| mfortab                   |
+| tra HD                    |
+| justabl                   |
+| st wire                   |
+| artwatc                   |
++---------------------------+
+
+7. Write a query to concatenate the product_name and description columns with a space in between from the products table.
+mysql> select concat_ws(" ", product_name, description) from Products;
++--------------------------------------------------------------------+
+| concat_ws(" ", product_name, description)                          |
++--------------------------------------------------------------------+
+| Wireless Mouse Ergonomic old mouse for precision tasks.            |
+| Mechanical Keyboard Old RGB mechanical keyboard with tactile keys. |
+| USB-C Hub Versatile USB-C hub.                                     |
+| External SSD Compact external SSD with old 1TB storage.            |
+| Bluetooth Headphones Noise-cancelling old Bluetooth headphones.    |
+| Gaming Chair Comfortable old chair designed for gaming.            |
+| 4K Monitor Ultra HD old 4K monitor for crisp visuals.              |
+| Smartphone Stand Adjustable stand for smartphones.                 |
+| Wireless Charger Fast wireless charger for mobile devices.         |
+| Smartwatch Smartwatch with fitness tracking old features.          |
++--------------------------------------------------------------------+
+
+8. Write a query to trim any leading and trailing spaces from the description column in the products table.
+mysql> select trim(description) from Products;
++------------------------------------------------+
+| trim(description)                              |
++------------------------------------------------+
+| Ergonomic old mouse for precision tasks.       |
+| RGB mechanical keyboard with tactile keys.     |
+| Versatile USB-C hub.                           |
+| Compact external SSD with old 1TB storage.     |
+| Noise-cancelling old Bluetooth headphones.     |
+| Comfortable old chair designed for gaming.     |
+| Ultra HD old 4K monitor for crisp visuals.     |
+| Special Adjustable stand for smartphones.      |
+| Fast wireless charger for mobile devices.      |
+| Smartwatch with fitness tracking old features. |
++------------------------------------------------+
+
+9. Write a query to find all records in the products table where the description column starts with the word "Limited".
+mysql> select * from Products where description like "Limited%";
++----+--------------+------------------------------+-------+-------------+
+| id | product_name | description                  | price | category    |
++----+--------------+------------------------------+-------+-------------+
+|  3 | USB-C Hub    | Limited Versatile USB-C hub. | 34.50 | Accessories |
++----+--------------+------------------------------+-------+-------------+
+
+10. Write a query to extract the domain part of an email address (everything after '@') from the email column in the users table.
+mysql> select substring_index(email, '@', -1) from Users;
++---------------------------------+
+| substring_index(email, '@', -1) |
++---------------------------------+
+| techguru.com                    |
+| creativemind.io                 |
+| smartsolutions.org              |
+| innovatehub.net                 |
+| futurelink.co                   |
++---------------------------------+
+
+11. Write a query to perform a case-insensitive search for the word "sale" in the description column of the products table.
+mysql> select field('sale', description) from Products;
++----------------------------+
+| field('sale', description) |
++----------------------------+
+|                          0 |
+|                          0 |
+|                          0 |
+|                          0 |
+|                          0 |
+|                          0 |
+|                          0 |
+|                          0 |
+|                          0 |
+|                          0 |
++----------------------------+
+
+12. Write a query to find all unique values in the category column of the products table, sorted in ascending order.
+mysql> select distinct(category) from Products order by category;
++-------------+
+| category    |
++-------------+
+| Accessories |
+| Audio       |
+| Electronics |
+| Furniture   |
+| Storage     |
+| Wearables   |
++-------------+
